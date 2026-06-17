@@ -13,27 +13,41 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  name      String
-  email     String     @unique
-  password  String
-  createdAt DateTime   @default(now())
+  id          Int       @id @default(autoincrement())
+  name        String
+  username    String    @unique
+  email       String    @unique
+  password    String
+  reputation  Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt DateTime @updatedAt
 
- questions Question[]
- answers Answer[]
+  questions   Question[]
+  answers     Answer[]
+  sessions    Session[]
+  votes       Vote[]
+  notifications Notification[]
 }
 
 model Question {
   id          Int      @id @default(autoincrement())
   title       String
   description String
-  votes       Int      @default(0)
+
+  upvotes      Int   @default(0)
+  downvotes    Int   @default(0)
+  overlapScore Float @default(0)
+
   createdAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
 
   answers Answer[]
+  votesList Vote[]
+  questionTags QuestionTag[]
+  notifications Notification[]
 }
 
 model Answer {
@@ -41,10 +55,68 @@ model Answer {
   content     String
   isAccepted  Boolean  @default(false)
   createdAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
 
   questionId  Int
   question    Question @relation(fields: [questionId], references: [id])
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  userId    Int
+  user      User @relation(fields: [userId], references: [id])
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  type String
+  createdAt DateTime @default(now())
+
+  userId    Int
+  user      User @relation(fields: [userId], references: [id])
+
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+
+  @@unique([userId, questionId])
+}
+
+model Notification {
+  id         Int       @id @default(autoincrement())
+  type String
+  message    String
+  isRead     Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+
+  userId     Int
+  user       User      @relation(fields: [userId], references: [id])
+
+  questionId Int?
+  question   Question? @relation(fields: [questionId], references: [id])
+}
+
+model Tag {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+
+  questions QuestionTag[]
+}
+
+model QuestionTag {
+  questionId Int
+  tagId      Int
+
+  question Question @relation(fields: [questionId], references: [id])
+  tag      Tag      @relation(fields: [tagId], references: [id])
+
+  @@id([questionId, tagId])
 }
