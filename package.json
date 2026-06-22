@@ -13,12 +13,16 @@
     "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
     "nuxt": "^4.4.7",
+    "nuxt-auth-utils": "^0.5.29",
     "prisma": "^6.19.3",
+    "qrcode": "^1.5.4",
     "vue": "^3.5.35",
+    "vue-qrcode-reader": "^5.7.3",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
-    "@types/node": "^25.9.2"
+    "@types/node": "^25.9.2",
+    "@types/qrcode": "^1.5.6"
   }
 }
