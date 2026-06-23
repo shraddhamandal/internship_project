@@ -5,16 +5,16 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
-  const question = await prisma.question.create({
+  const answer = await prisma.answer.create({
     data: {
-      title: body.title,
-      description: body.description,
-      userId: body.userId
+      content: body.content,
+      userId: body.userId,
+      questionId: body.questionId
     }
   });
 
   return {
     success: true,
-    question
+    answer
   };
 });
