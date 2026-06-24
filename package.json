@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@tailwindcss/vite": "^4.3.1",
     "bcrypt": "^6.0.0",
     "nuxt": "^4.4.7",
     "nuxt-auth-utils": "^0.5.29",
     "prisma": "^6.19.3",
     "qrcode": "^1.5.4",
+    "tailwindcss": "^4.3.1",
     "vue": "^3.5.35",
     "vue-qrcode-reader": "^5.7.3",
     "vue-router": "^5.1.0"

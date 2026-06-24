@@ -13,8 +13,17 @@ export default defineEventHandler(async () => {
           email: true,
           reputation: true
         }
-      }
+      },
+
+      questionTags: {
+        include: {
+          tag: true
+        }
+      },
+
+      answers: true
     },
+
     orderBy: {
       createdAt: "desc"
     }
