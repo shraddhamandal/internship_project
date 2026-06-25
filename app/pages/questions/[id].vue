@@ -1,37 +1,121 @@
 <template>
-  <div v-if="question" style="padding: 20px">
+  <div class="mb-6">
+  <NuxtLink
+    to="/"
+    class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition"
+  >
+    ← Back to Questions
+  </NuxtLink>
+</div>
+  <div
+    v-if="question"
+    class="min-h-screen bg-slate-100"
+  >
 
-    <h1>{{ question.title }}</h1>
+    <div class="max-w-5xl mx-auto px-8 py-10">
 
-    <p>{{ question.description }}</p>
+   <!-- Question Card -->
 
-    <p>
-      Asked By:
-      <strong>{{ question.user.name }}</strong>
-    </p>
+<div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-10 mb-8">
 
-    <hr>
+  <div class="flex items-center gap-3 mb-5">
 
-    <h2>Answers</h2>
+    <span
+      class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold"
+    >
+      📌 Question
+    </span>
+
+  </div>
+
+  <h1
+    class="text-5xl font-bold text-slate-800 leading-tight"
+  >
+    {{ question.title }}
+  </h1>
+
+  <p
+    class="mt-6 text-xl text-slate-600 leading-8"
+  >
+    {{ question.description }}
+  </p>
+
+  <div
+    class="flex items-center gap-4 mt-8 pt-6 border-t"
+  >
 
     <div
-      v-for="answer in question.answers"
-      :key="answer.id"
-      style="
-        border:1px solid #ccc;
-        padding:10px;
-        margin-top:10px;
-      "
+      class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-2xl"
     >
-      <p>{{ answer.content }}</p>
+      👤
+    </div>
 
-      <small>
-        Answered By:
-        {{ answer.user.name }}
-      </small>
+    <div>
 
-      <br><br>
+      <p class="font-semibold text-slate-800">
+        {{ question.user.name }}
+      </p>
 
+      <p class="text-slate-500 text-sm">
+        Question Author
+      </p>
+
+    </div>
+
+  </div>
+  <div class="mt-6">
+
+  <span
+    class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium"
+  >
+    💬 {{ question.answers.length }}
+    {{ question.answers.length === 1 ? "Answer" : "Answers" }}
+  </span>
+
+</div>
+
+</div>
+
+
+
+   <!-- Answers -->
+
+<h2
+  class="text-3xl font-bold text-slate-800 mb-6"
+>
+  💬 Answers
+</h2>
+
+    <div
+  v-for="answer in question.answers"
+  :key="answer.id"
+  class="bg-white rounded-2xl shadow-md border border-gray-100 p-8 mb-6 hover:shadow-xl transition-all duration-300"
+>
+      <p class="text-lg text-slate-700 leading-8">
+  {{ answer.content }}
+</p>
+
+      <div class="flex items-center gap-3 mt-6">
+
+  <div
+    class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center"
+  >
+    👤
+  </div>
+
+  <div>
+
+    <p class="font-semibold text-slate-800">
+      {{ answer.user.name }}
+    </p>
+
+    <p class="text-sm text-slate-500">
+      Community Member
+    </p>
+
+  </div>
+
+</div>
       <span
         v-if="answer.isAccepted"
         style="
@@ -45,34 +129,46 @@
       </span>
 
       <button
-        v-else
-        @click="acceptAnswer(answer.id)"
-        style="
-          padding:5px 10px;
-          cursor:pointer;
-        "
-      >
-        Accept Answer
-      </button>
+  v-else
+  @click="acceptAnswer(answer.id)"
+  class="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition font-semibold"
+>
+  ✓ Accept Answer
+</button>
 
     </div>
 
     <hr style="margin-top:30px">
 
-    <h2>Your Answer</h2>
+    <!-- Your Answer -->
+
+<div class="mt-10">
+
+  <h2 class="text-3xl font-bold text-slate-800 mb-6">
+    ✍️ Your Answer
+  </h2>
+
+  <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-8">
 
     <textarea
       v-model="answerContent"
-      rows="5"
+      rows="6"
       placeholder="Write your answer here..."
-      style="width:100%; padding:10px;"
+      class="w-full rounded-xl border border-slate-300 p-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
     ></textarea>
 
-    <br><br>
-
-    <button @click="submitAnswer">
-      Submit Answer
+    <button
+      @click="submitAnswer"
+      class="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition"
+    >
+      🚀 Submit Answer
     </button>
+
+  </div>
+
+</div>
+
+    </div>
 
   </div>
 </template>

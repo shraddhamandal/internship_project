@@ -25,7 +25,21 @@ export default defineOAuthGoogleEventHandler({
       console.log("New Google user created");
     }
 
-    return sendRedirect(event, "/");
+   const dbUser = existingUser || await prisma.user.findUnique({
+  where: {
+    email: user.email
+  }
+})
+
+await setUserSession(event, {
+  user: {
+    id: dbUser!.id,
+    name: dbUser!.name,
+    email: dbUser!.email
+  }
+})
+
+return sendRedirect(event, "/")
   },
 
   async onError(event, error) {
