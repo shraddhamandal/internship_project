@@ -87,7 +87,7 @@
 
 <script setup>
 const { data } = await useFetch(
-  "http://localhost:3000/api/notifications?userId=1"
+  "/api/notifications?userId=1"
 )
 
 const notifications = data.value?.notifications || []

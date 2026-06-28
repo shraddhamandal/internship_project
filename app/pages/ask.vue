@@ -91,7 +91,7 @@ loading.value = true
 
   try {
     const response = await $fetch(
-      "http://localhost:3000/api/questions/create",
+     "/api/questions/create",
       {
         method: "POST",
         body: {

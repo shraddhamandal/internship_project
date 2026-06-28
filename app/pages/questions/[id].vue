@@ -177,7 +177,7 @@
 const route = useRoute()
 
 const { data, refresh } = await useFetch(
-  `http://localhost:3000/api/questions/question-detail?id=${route.params.id}`
+  `/api/questions/question-detail?id=${route.params.id}`
 )
 
 const question = computed(() => data.value?.question)
@@ -187,7 +187,7 @@ const answerContent = ref("")
 const submitAnswer = async () => {
   try {
     await $fetch(
-      "http://localhost:3000/api/answers/create",
+     "/api/answers/create" ,
       {
         method: "POST",
         body: {
@@ -213,7 +213,7 @@ const submitAnswer = async () => {
 const acceptAnswer = async (answerId) => {
   try {
     await $fetch(
-      "http://localhost:3000/api/answers/accept",
+     "/api/answers/accept" ,
       {
         method: "POST",
         body: {

@@ -350,14 +350,13 @@
 <script setup>
 import { computed, ref } from "vue"
 
-const { data, refresh } = await useFetch(
-  "http://localhost:3000/api/questions"
-)
+const { data, refresh } = await useFetch("/api/questions")
+
 const { data: sessionData } = await useFetch("/api/auth/me")
 
 const currentUser = computed(() => sessionData.value?.user)
 
-const questions = data.value.questions
+const questions = computed(() => data.value?.questions || [])
 
 // Search
 const search = ref("")
@@ -417,7 +416,8 @@ const totalUpvotes = computed(() => {
 // Voting
 const vote = async (questionId, type) => {
   try {
-    await $fetch("http://localhost:3000/api/votes/create", {
+    await $fetch(
+  "/api/votes/create", {
       method: "POST",
       body: {
         questionId,
