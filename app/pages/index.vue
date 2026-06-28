@@ -351,6 +351,8 @@
 import { computed, ref } from "vue"
 
 const { data, refresh } = await useFetch("/api/questions")
+console.log("API Response:", data.value)
+console.log("Questions:", data.value?.questions)
 
 const { data: sessionData } = await useFetch("/api/auth/me")
 
@@ -366,7 +368,7 @@ const sortBy = ref("latest")
 
 const filteredQuestions = computed(() => {
 
-  let result = questions.filter((question) => {
+ let result = questions.value.filter((question) => {
 
     const text = (
       question.title +
