@@ -353,6 +353,9 @@ import { computed, ref } from "vue"
 const { data, refresh } = await useFetch(
   "http://localhost:3000/api/questions"
 )
+const { data: sessionData } = await useFetch("/api/auth/me")
+
+const currentUser = computed(() => sessionData.value?.user)
 
 const questions = data.value.questions
 
